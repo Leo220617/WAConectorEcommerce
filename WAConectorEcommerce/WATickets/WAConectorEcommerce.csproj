@@ -233,6 +233,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\BitacoraController.cs" />
+    <Compile Include="Controllers\CategoriasController.cs" />
     <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\Conexion.cs" />
     <Compile Include="Controllers\G.cs" />
@@ -250,6 +251,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Cliente\BitacoraErrores.cs" />
+    <Compile Include="Models\Cliente\Categorias.cs" />
     <Compile Include="Models\Cliente\Clientes.cs" />
     <Compile Include="Models\Cliente\ConexionSAP.cs" />
     <Compile Include="Models\Cliente\DetOrden.cs" />

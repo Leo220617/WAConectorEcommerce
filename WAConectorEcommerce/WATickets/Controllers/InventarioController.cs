@@ -276,5 +276,95 @@ namespace WATickets.Controllers
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, ex);
             }
         }
+
+        [HttpPost]
+        public HttpResponseMessage Post([FromBody] Inventario item)
+        {
+            try
+            {
+
+                var Item = db.Inventario.Where(a => a.id == item.id).FirstOrDefault();
+
+                if (Item == null)
+                {
+                    //Agregar cliente a SAP
+                    var client = (SAPbobsCOM.Items)Conexion.Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oItems);
+                    client.ItemCode = item.ItemCode;
+                    client.ItemName = item.ItemName;
+                    client.WhsInfo.WarehouseCode = item.WhsCode;
+                    client.ItemsGroupCode = Convert.ToInt32( item.Categoria); //transformar en la insercion 
+                    client.PriceList.Price = Convert.ToDouble(item.Precio.Value);
+                    client.PriceList.Currency = item.Currency;
+                    client.PriceList.BasePriceList = int.Parse(item.ListaPrecio);
+
+                    client.UserFields.Fields.Item("U_CABYS").Value = item.Cabys;
+                    client.UserFields.Fields.Item("U_TipoIVA").Value = item.TipoIVA;
+                  
+                    var respuest = client.Add();
+
+                    if (respuest == 0)
+                    {
+                        
+                    }
+                    else
+                    {
+                        throw new Exception(Conexion.Company.GetLastErrorDescription());
+                    }
+
+
+                    Conexion.Desconectar();
+
+                    //Termina Agregar Cliente a SAP
+
+                    Item = new Inventario();
+                    Item.ItemCode = item.ItemCode;
+                    Item.ItemName = item.ItemName;
+                    Item.Cabys = item.Cabys;
+                    Item.TipoIVA = item.TipoIVA;
+                    Item.WhsCode = item.WhsCode;
+                    var categoria = Convert.ToInt32(item.Categoria);
+                    Item.Categoria = db.Categorias.Where( a => a.idSAP == categoria).FirstOrDefault().Nombre;
+                    Item.OnHand = 0;
+                    Item.IsCommited = 0;
+                    Item.Stock = 0;
+                    Item.Precio = item.Precio;
+                    Item.Currency = item.Currency;
+                    Item.ListaPrecio = item.ListaPrecio;
+                
+                    Item.Total = Item.Precio * 1;
+                    Item.FechaActualizacion = DateTime.Now;
+                    Item.FechaActPrec = DateTime.Now;
+
+                    db.Inventario.Add(Item);
+                    db.SaveChanges();
+
+
+                }
+                else
+                {
+                    throw new Exception("Este item  YA existe");
+
+                }
+
+
+                return Request.CreateResponse(HttpStatusCode.OK, Item);
+            }
+            catch (Exception ex)
+            {
+                BitacoraErrores be = new BitacoraErrores();
+
+                be.Descripcion = ex.Message;
+                be.StackTrace = ex.StackTrace;
+                be.Fecha = DateTime.Now;
+
+                db.BitacoraErrores.Add(be);
+                db.SaveChanges();
+
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex);
+
+            }
+        }
+
+
     }
 }

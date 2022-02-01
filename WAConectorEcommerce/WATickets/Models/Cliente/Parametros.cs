@@ -16,5 +16,6 @@ namespace WATickets.Models.Cliente
         public string SQLInventario { get; set; }
         public int SeriesClientes { get; set; }
         public int GroupCodeClientes { get; set; }
+        public string SQLTipoIVA { get; set; }
     }
 }

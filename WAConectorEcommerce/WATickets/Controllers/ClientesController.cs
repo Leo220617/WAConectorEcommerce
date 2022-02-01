@@ -357,6 +357,9 @@ namespace WATickets.Controllers
 
                 if (Cliente != null)
                 {
+
+                  
+
                     db.Entry(Cliente).State = EntityState.Modified;
                     Cliente.CardCode = cliente.CardCode;
                     Cliente.CardName = cliente.CardName;
