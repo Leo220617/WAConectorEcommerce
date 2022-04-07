@@ -283,7 +283,7 @@ namespace WATickets.Controllers
                     var cardCode = "";
                     //Agregar cliente a SAP
                     var client = (SAPbobsCOM.BusinessPartners)Conexion.Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oBusinessPartners);
-                    client.CardCode = cliente.CardCode;
+                    client.CardCode = "";
                     client.CardName = cliente.CardName;
                     client.CardType = SAPbobsCOM.BoCardTypes.cCustomer;
                     client.FederalTaxID = cliente.Cedula;

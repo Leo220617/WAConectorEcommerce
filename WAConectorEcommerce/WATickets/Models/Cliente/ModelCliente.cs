@@ -25,6 +25,7 @@ namespace WATickets.Models.Cliente
         public virtual DbSet<EncOrden> EncOrden { get; set; }
         public virtual DbSet<DetOrden> DetOrden { get; set; }
         public virtual DbSet<Categorias> Categorias { get; set; }
+        public virtual DbSet<ListaPrecios> ListaPrecios { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

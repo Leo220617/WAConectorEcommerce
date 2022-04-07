@@ -240,6 +240,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImpuestosController.cs" />
     <Compile Include="Controllers\InventarioController.cs" />
+    <Compile Include="Controllers\ListaPreciosController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\OrdenVentaController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
@@ -258,6 +259,7 @@
     <Compile Include="Models\Cliente\EncOrden.cs" />
     <Compile Include="Models\Cliente\Impuestos.cs" />
     <Compile Include="Models\Cliente\Inventario.cs" />
+    <Compile Include="Models\Cliente\ListaPrecios.cs" />
     <Compile Include="Models\Cliente\Login.cs" />
     <Compile Include="Models\Cliente\ModelCliente.cs" />
     <Compile Include="Models\Cliente\Parametros.cs" />
